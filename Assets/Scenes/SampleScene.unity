@@ -130,14 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 681233730, guid: c77c06313b77db443b35e145b7228fa7, type: 3}
-      propertyPath: _speed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 681233730, guid: c77c06313b77db443b35e145b7228fa7, type: 3}
-      propertyPath: _powerJump
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 7318152678742136944, guid: c77c06313b77db443b35e145b7228fa7, type: 3}
       propertyPath: m_RootOrder
       value: 1
