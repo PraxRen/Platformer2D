@@ -6,15 +6,15 @@ internal class Enemy : Personage
 {
     public void FoundPlayer()
     {
-        if (TryGetComponent(out WayPointMovement wayPointMovement) == false || TryGetComponent(out RayVision playerFind) == false)
+        if (!TryGetComponent(out WayPointMovement wayPointMovement) || !TryGetComponent(out RayVision rayVision))
             return;
 
-        wayPointMovement.Pursuit(playerFind.Result.transform);
+        wayPointMovement.Pursuit(rayVision.Result.transform);
     }
 
     public void LostPlayer()
     {
-        if (TryGetComponent(out WayPointMovement wayPointMovement) == false)
+        if (TryGetComponent(out WayPointMovement wayPointMovement))
             return;
 
         wayPointMovement.Patrul();
@@ -37,10 +37,18 @@ internal class Enemy : Personage
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.TryGetComponent<Player>(out Player player) && IsDead == false)
+        if (collision.collider.TryGetComponent(out Player player) && !IsDead)
         {
-            player.Hit(base._damage);
-            base._animator.SetTrigger("Attack");
+            _opponent = player;
+            Attack();
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.TryGetComponent(out Player player))
+        {
+            _opponent = null;
         }
     }
 }

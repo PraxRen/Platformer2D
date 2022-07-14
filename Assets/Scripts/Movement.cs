@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Personage), typeof(Animator), typeof(DirectionVisual))]
+[RequireComponent(typeof(Personage), typeof(OrientationSpace))]
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -11,14 +11,12 @@ public class Movement : MonoBehaviour
     
     private static float _ranSpeedMulti = 2;
     private float _currentSpeed;
-    private Animator _animator;
-    private DirectionVisual _directionVisual;
+    private OrientationSpace _orientationSpace;
     private Personage _personage;
 
     private void Start()
     {
-        _directionVisual = GetComponent<DirectionVisual>();
-        _animator = GetComponent<Animator>();
+        _orientationSpace = GetComponent<OrientationSpace>();
         _personage = GetComponent<Personage>();
     }
 
@@ -39,29 +37,27 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             _currentSpeed = -_speed;
-            _directionVisual.ChangeDirection(Direction.Left);
+            _orientationSpace.ChangeDirection(Direction.Left);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             _currentSpeed = _speed;
-            _directionVisual.ChangeDirection(Direction.Right);
+            _orientationSpace.ChangeDirection(Direction.Right);
         }
 
         transform.Translate(_currentSpeed * Time.deltaTime, 0, 0);
-        _animator.SetFloat("Speed", Math.Abs(_currentSpeed));
-        
+        _personage.Move(_currentSpeed); //_currentSpeed
 
         if (Input.GetKey(KeyCode.Space))
         {
             transform.Translate(0, _powerJump * Time.deltaTime, 0);
-            _animator.SetTrigger("Jump");
+            _personage.Jump();
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             _personage.Attack();
-            _animator.SetTrigger("Attack");
         }
     }
 }

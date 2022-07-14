@@ -18,7 +18,7 @@ internal class Player : Personage
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.TryGetComponent<Enemy>(out Enemy enemy) == true)
+        if (collision.collider.TryGetComponent(out Enemy enemy))
         {
             _opponent = enemy;
         }
@@ -26,7 +26,7 @@ internal class Player : Personage
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.TryGetComponent<Enemy>(out Enemy enemy) == true)
+        if (collision.collider.TryGetComponent(out Enemy enemy))
         {
             _opponent = null;
         }
@@ -34,7 +34,7 @@ internal class Player : Personage
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Coin coin) == true)
+        if (collision.TryGetComponent(out Coin coin))
         {
             _coins.Add(coin);
             Destroy(coin.gameObject);

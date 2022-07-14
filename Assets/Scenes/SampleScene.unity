@@ -5989,6 +5989,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7318152678568291872, guid: 55851a3d02eda844abd47366ef75ee6a, type: 3}
+      propertyPath: _health
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55851a3d02eda844abd47366ef75ee6a, type: 3}
 --- !u!1001 &5342798677544848415

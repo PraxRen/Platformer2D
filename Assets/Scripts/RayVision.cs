@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(DirectionVisual))]
+[RequireComponent(typeof(OrientationSpace))]
 public class RayVision : MonoBehaviour
 {
     [SerializeField] private ContactFilter2D _filter;
@@ -13,26 +13,26 @@ public class RayVision : MonoBehaviour
     public RaycastHit2D Result { get => _results[0]; }
 
     public readonly RaycastHit2D[] _results = new RaycastHit2D[1];
-    private DirectionVisual _directionVisual;
+    private OrientationSpace _orientationSpace;
     private Vector3 _directionRaycast;
     private bool _isFound;
 
     private void OnEnable()
     {
-        _directionVisual = GetComponent<DirectionVisual>();
-        _directionVisual.AfterChangeDirection += DirectionVisual_AfterChangeDirection;
+        _orientationSpace = GetComponent<OrientationSpace>();
+        _orientationSpace.AfterChangeDirection += DirectionVisual_AfterChangeDirection;
         DirectionVisual_AfterChangeDirection();
     }
  
     private void OnDisable()
     {
-        _directionVisual.AfterChangeDirection -= DirectionVisual_AfterChangeDirection;
-        _directionVisual = null;
+        _orientationSpace.AfterChangeDirection -= DirectionVisual_AfterChangeDirection;
+        _orientationSpace = null;
     }
 
     private void DirectionVisual_AfterChangeDirection()
     {
-        if (_directionVisual.Direction == Direction.Left)
+        if (_orientationSpace.Direction == Direction.Left)
             _directionRaycast = transform.right * -1;
         else
             _directionRaycast = transform.right;

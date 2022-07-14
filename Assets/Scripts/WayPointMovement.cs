@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Animator), typeof(DirectionVisual))]
+[RequireComponent(typeof(OrientationSpace), typeof(Personage))]
 public class WayPointMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -12,14 +12,15 @@ public class WayPointMovement : MonoBehaviour
     [SerializeField] private int _waySeconds;
 
     private int _currentPoint;
-    private Animator _animator;
-    private DirectionVisual _directionVisual;
+    private Personage _personage;
+    private OrientationSpace _orientationSpace;
     private Coroutine moveGameObjectJob;
     private Transform[] _savePoints;
 
     public void Pursuit(Transform target)
     {
         _points = new Transform[] { target };
+        _currentPoint = 0;
     }
 
     public void Patrul()
@@ -30,8 +31,8 @@ public class WayPointMovement : MonoBehaviour
     private void OnEnable()
     {
         _savePoints = _points;
-        _animator = GetComponent<Animator>();
-        _directionVisual = GetComponent<DirectionVisual>();
+        _personage = GetComponent<Personage>();
+        _orientationSpace = GetComponent<OrientationSpace>();
         moveGameObjectJob = StartCoroutine(MoveGameObject());
     }
 
@@ -49,8 +50,8 @@ public class WayPointMovement : MonoBehaviour
             waitForSeconds = null;
             var newPosition = Vector3.MoveTowards(transform.position, _points[_currentPoint].position, _speed * Time.deltaTime);
             var direction = GetTargetDirection(newPosition.x);
-            _directionVisual.ChangeDirection(direction);
-            _animator.SetFloat("Speed", _speed);
+            _orientationSpace.ChangeDirection(direction);
+            _personage.Move(_speed);
             transform.position = newPosition;
 
             if (transform.position == _points[_currentPoint].position)
@@ -62,7 +63,7 @@ public class WayPointMovement : MonoBehaviour
                     _currentPoint = 0;
                 }
 
-                _animator.SetFloat("Speed", 0);
+                _personage.Move(0);
                 waitForSeconds = new WaitForSeconds(_waySeconds);
             }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DirectionVisual : MonoBehaviour
+public class OrientationSpace : MonoBehaviour
 {
     [SerializeField] private Direction _direction;
     [SerializeField] private UnityEvent _afterChangeDirection;
