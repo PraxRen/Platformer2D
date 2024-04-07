@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 4228d55fcb8ebc2498a1c37b5d7571a6, type: 2}
+    - target: {fileID: 5944340143395960735, guid: fd1ac7c18b483394b952763b099d484c, type: 3}
+      propertyPath: _speedRun
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6783142428032256227, guid: fd1ac7c18b483394b952763b099d484c, type: 3}
       propertyPath: m_Simulated
       value: 1

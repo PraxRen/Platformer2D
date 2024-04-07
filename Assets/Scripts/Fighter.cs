@@ -66,9 +66,9 @@ public class Fighter : MonoBehaviour, IListenerAnimationEvent
         _animator.SetTrigger(AnimatorCharacterManager.Instance.Params.Attack);
     }
 
-    public bool CanHitTarget() 
+    public bool CanHitTarget(float distance) 
     {
-        RaycastHit2D[] hits = GetHist();
+        RaycastHit2D[] hits = GetHist(distance);
 
         if (hits.Length == 0)
             return false;
@@ -79,7 +79,7 @@ public class Fighter : MonoBehaviour, IListenerAnimationEvent
 
     private void AttemptAttackTarget()
     {
-        RaycastHit2D[] hits = GetHist();
+        RaycastHit2D[] hits = GetHist(_distanceDamage);
 
         foreach (RaycastHit2D hit in hits)
         {
@@ -88,12 +88,12 @@ public class Fighter : MonoBehaviour, IListenerAnimationEvent
         }
     }
 
-    private RaycastHit2D[] GetHist()
+    private RaycastHit2D[] GetHist(float distance)
     {
         float height = _collider.size.y / 2;
         Vector3 offset = new Vector2(transform.localScale.normalized.x * (_radiusDamage / 2), height);
         Vector2 direction = new Vector2(transform.localScale.normalized.x, 0);
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position + offset, _radiusDamage, direction, _distanceDamage, _layerDamageble);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position + offset, _radiusDamage, direction, distance, _layerDamageble);
         return hits;
     }
 

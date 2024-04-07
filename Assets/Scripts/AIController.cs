@@ -11,8 +11,6 @@ public class AIController : MonoBehaviour
 
     private const float MinDistanceForAttack = 2.5f;
     private const float MaxDistanceForAttack = 5f;
-    private const float MultiDistanceForAggression = 2f;
-    private const float MinDistanceForAggression = MinDistanceForAttack / MultiDistanceForAggression;
 
     private Movement _movement;
     private Fighter _fighter;
@@ -117,13 +115,15 @@ public class AIController : MonoBehaviour
             return;
         }
 
-        if (Vector2.Distance(_playerTransform.position, transform.position) <= MinDistanceForAggression)
+        float distanceTarget = Vector2.Distance(_playerTransform.position, transform.position);
+
+        if (distanceTarget <= MinDistanceForAttack)
         {
             SetState(TypeState.Attack);
             return;
         }
 
-        if (Vector2.Distance(_playerTransform.position, transform.position) <= MinDistanceForAttack && _fighter.CanHitTarget())
+        if (distanceTarget <= MaxDistanceForAttack && _fighter.CanHitTarget(MaxDistanceForAttack))
         {
             SetState(TypeState.Attack);
         }

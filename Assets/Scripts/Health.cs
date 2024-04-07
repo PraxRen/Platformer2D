@@ -10,10 +10,12 @@ public class Health : MonoBehaviour
     public float Value { get; private set; }
 
     public event Action Died;
+    public event Action<float> Updated;
 
     private void Start()
     {
         Value = _maxValue;
+        Updated?.Invoke(Value);
     }
 
     public void TakeDamage(float damage)
@@ -29,6 +31,8 @@ public class Health : MonoBehaviour
 
         if (Value == 0)
             Die();
+
+        Updated?.Invoke(Value);
     }
 
     public void Heal(float value)
@@ -37,6 +41,7 @@ public class Health : MonoBehaviour
             throw new ArgumentOutOfRangeException(nameof(value));
 
         Value = Mathf.Min(_maxValue, Value + value);
+        Updated?.Invoke(Value);
     }
 
     private void Die()
