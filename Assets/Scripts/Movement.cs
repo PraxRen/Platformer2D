@@ -1,63 +1,172 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Personage), typeof(OrientationSpace))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-    [SerializeField] private float _powerJump;
-    
-    private static float _ranSpeedMulti = 2;
-    private float _currentSpeed;
-    private OrientationSpace _orientationSpace;
-    private Personage _personage;
+    private enum Direction
+    {
+        Right,
+        Left
+    }
+
+    [SerializeField] private float _speedWalk;
+    [SerializeField] private float _speedRun;
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private float _groundedOffset;
+    [SerializeField] private float _groundedRadius;
+    [SerializeField] private float _fallTimeout;
+    [SerializeField] private float _jumpLimitTime;
+    [SerializeField] private Animator _animator;
+
+    private Rigidbody2D _rigidbody2D;
+    private CapsuleCollider2D _collider;
+    private bool _isGrounded;
+    private bool _isJump;
+    private bool _isFreeFall;
+    private bool _isRun;
+    private float _currentFallTimeout;
+    private float _currentJumpTime;
+    private float _targetSpeed;
+    private Direction _currentLookDirection;
+
+    private void OnEnable()
+    {
+        if (_rigidbody2D != null)
+        {
+            _collider.enabled = true;
+            _rigidbody2D.isKinematic = false;
+        }
+    }
+
+    private void OnDisable()
+    {
+        _rigidbody2D.isKinematic = true;
+        _collider.enabled = false;
+        _rigidbody2D.velocity = Vector2.zero;
+    }
 
     private void Start()
     {
-        _orientationSpace = GetComponent<OrientationSpace>();
-        _personage = GetComponent<Personage>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<CapsuleCollider2D>();
+        _currentFallTimeout = _fallTimeout;
     }
 
     private void Update()
     {
-        _currentSpeed = 0;
+        UpdateCollisionGround();
+        HandleJump();
+        HandleFreeFall();
+        UpdateAnimations();
+    }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+    public void Jump()
+    {
+        if (_isGrounded == false)
+            return;
+
+        if (_isJump)
+            return;
+
+        _isJump = true;
+        _currentJumpTime = 0;
+        _rigidbody2D.AddForce(Vector2.up * _jumpForce);
+    }
+
+    public void Run()
+    {
+        if (_isGrounded == false)
+            return;
+
+        _isRun = true;
+    }
+
+    public void CancelRun()
+    {
+        _isRun = false;
+    }
+
+    public void Move(Vector2 direction)
+    {
+        if (direction.magnitude == 0)
         {
-            _speed = _speed / _ranSpeedMulti;
+            _targetSpeed = 0;
+            return;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (_isRun)
+            _targetSpeed = _speedRun;
+        else
+            _targetSpeed = _speedWalk;
+
+        LookAtDirection(direction);
+        Vector2 targetVelocity = direction.normalized * _targetSpeed;
+        targetVelocity.y = _rigidbody2D.velocity.y;
+        _rigidbody2D.velocity = targetVelocity;
+    }
+
+    public void LookAtDirection(Vector2 direction)
+    {
+        Direction targetDirection = direction.x < 0 ? Direction.Left : Direction.Right;
+
+        if (_currentLookDirection == targetDirection)
+            return;
+
+        _currentLookDirection = targetDirection;
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+    }
+
+    private void UpdateCollisionGround()
+    {
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y + _groundedOffset, transform.position.z);
+        _isGrounded = Physics2D.OverlapCircle(spherePosition, _groundedRadius, _groundLayer);
+    }
+
+    private void HandleJump()
+    {
+        if (_isJump == false)
+            return;
+            
+        _currentJumpTime += Time.deltaTime;
+
+        if (_currentJumpTime <= _jumpLimitTime)
+            return;
+
+        _isJump = false;
+    }
+
+    private void HandleFreeFall()
+    {
+        if (_isGrounded)
         {
-            _speed *= _ranSpeedMulti;
+            _isFreeFall = false;
+            _currentFallTimeout = _fallTimeout;
+        }
+        else
+        {
+            _currentFallTimeout -= Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            _currentSpeed = -_speed;
-            _orientationSpace.ChangeDirection(Direction.Left);
-        }
+        if (_currentFallTimeout >= 0f)
+            return;
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            _currentSpeed = _speed;
-            _orientationSpace.ChangeDirection(Direction.Right);
-        }
+        _isFreeFall = true;
+    }
 
-        transform.Translate(_currentSpeed * Time.deltaTime, 0, 0);
-        _personage.Move(_currentSpeed); //_currentSpeed
+    private void UpdateAnimations()
+    {
+        _animator.SetFloat(AnimatorCharacterManager.Instance.Params.Speed, _targetSpeed);
+        _animator.SetBool(AnimatorCharacterManager.Instance.Params.IsFreeFall, _isFreeFall);
+        _animator.SetBool(AnimatorCharacterManager.Instance.Params.IsJump, _isJump);
+    }
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            transform.Translate(0, _powerJump * Time.deltaTime, 0);
-            _personage.Jump();
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            _personage.Attack();
-        }
+    private void OnDrawGizmosSelected()
+    {
+        Color transparentGreen = Color.green;
+        Color transparentRed = Color.red;
+        Gizmos.color = _isGrounded ? transparentGreen : transparentRed;
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + _groundedOffset, transform.position.z), _groundedRadius);
     }
 }
