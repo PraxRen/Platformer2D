@@ -1,69 +1,64 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Movement))]
-[RequireComponent(typeof(Fighter))]
-[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Movement), typeof(Fighter), typeof(Health))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
+    private PlayerInput _playerInput;
     private Movement _movement;
     private Fighter _fighter;
     private Health _health;
 
-    public static PlayerController Instance { get; private set; }
-
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
+        _movement = GetComponent<Movement>();
+        _fighter = GetComponent<Fighter>();
+        _health = GetComponent<Health>();
+        _playerInput = GetComponent<PlayerInput>();
     }
 
     private void OnEnable()
     {
-        if (_health != null)
-            _health.Died += OnDied;
+        _health.Died += OnDied;
+        _playerInput.Jump += OnJump;
+        _playerInput.Run += OnRun;
+        _playerInput.CancelRun += OnCancelRun;
+        _playerInput.Attack += OnAttack;
     }
 
     private void OnDisable()
     {
         _health.Died -= OnDied;
+        _playerInput.Jump -= OnJump;
+        _playerInput.Run -= OnRun;
+        _playerInput.CancelRun -= OnCancelRun;
+        _playerInput.Attack -= OnAttack;
     }
 
-    private void Start()
+    private void FixedUpdate()
     {
-        _movement = GetComponent<Movement>();
-        _fighter = GetComponent<Fighter>();
-        _health = GetComponent<Health>();
-        _health.Died += OnDied;
+        _movement.Move(_playerInput.DirectionMove);
     }
 
-    private void Update()
+    private void OnAttack()
     {
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        _movement.Move(new Vector2(moveInput, 0));
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _movement.Jump();
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            _movement.Run();
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            _movement.CancelRun();
-        }
-
-        if (Input.GetMouseButtonDown(0) && _fighter.CanAttack())
-        {
+        if (_fighter.CanAttack())
             _fighter.Attack();
-        }
+    }
+
+    private void OnRun()
+    {
+        _movement.Run();
+    }
+
+    private void OnCancelRun()
+    {
+        _movement.CancelRun();
+    }
+
+    private void OnJump()
+    {
+        _movement.Jump();
     }
 
     private void OnDied()

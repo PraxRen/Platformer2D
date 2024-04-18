@@ -19,9 +19,12 @@ public class ScoreManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AddCoin()
+    public void AddCoins(int count)
     {
-        Coins++;
+        if (count < 0)
+            throw new ArgumentOutOfRangeException(nameof(count));
+
+        Coins += count;
         UpdatedCoins?.Invoke(Coins);
     }
 }

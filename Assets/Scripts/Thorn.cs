@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Thorn : MonoBehaviour
+public class Thorn : MonoBehaviour, IDamageDealer
 {
     [SerializeField] private float _damage;
 
+    public float Damage => _damage;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.TryGetComponent(out Fighter fighter))
+        if (collision.transform.TryGetComponent(out IDamageable damageable))
         {
-            fighter.TakeDamage(_damage);
+            damageable.TakeDamage(this);
         }
     }
 }

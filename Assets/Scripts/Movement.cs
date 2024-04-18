@@ -1,7 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(CapsuleCollider2D), typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
 {
     private enum Direction
@@ -54,7 +53,7 @@ public class Movement : MonoBehaviour
         _currentFallTimeout = _fallTimeout;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateCollisionGround();
         HandleJump();

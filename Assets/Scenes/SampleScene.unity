@@ -137,6 +137,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 351682351}
+  - component: {fileID: 351682353}
+  - component: {fileID: 351682352}
   m_Layer: 0
   m_Name: Spawners
   m_TagString: Untagged
@@ -164,6 +166,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &351682352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351682350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86dc9b481581c9b46a4f00d3ff2f0345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 647213429094304631, guid: 48b47e37b69d6a94098da2ebbce7dbb8, type: 3}
+  _spawnPoints:
+  - {fileID: 733158354}
+  - {fileID: 1618063072}
+--- !u!114 &351682353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351682350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86dc9b481581c9b46a4f00d3ff2f0345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5765799349996035716, guid: a8415db14f7d3a5438f93b049410df85, type: 3}
+  _spawnPoints:
+  - {fileID: 1168819155}
+  - {fileID: 1417483257}
+  - {fileID: 1758381036}
 --- !u!1 &379479730
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1039,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3501753597139999179, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5831065929794520576, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
       propertyPath: m_Name
       value: Skeleton (2)
@@ -1017,6 +1056,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8649607802554079012, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: _defaultPatrolPath
+      value: 
+      objectReference: {fileID: 1474137452}
+    - target: {fileID: 8920887300545211756, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
       propertyPath: _defaultPatrolPath
       value: 
       objectReference: {fileID: 1474137452}
@@ -1065,7 +1108,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 733158354}
-  - component: {fileID: 733158355}
   m_Layer: 0
   m_Name: SpawnerAidKit
   m_TagString: Untagged
@@ -1088,19 +1130,6 @@ Transform:
   m_Father: {fileID: 351682351}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &733158355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733158353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86dc9b481581c9b46a4f00d3ff2f0345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 8623759018966105865, guid: 3f45c54d3d0709e47bc28e836cefc97b, type: 3}
 --- !u!1001 &745965240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1153,6 +1182,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3501753597139999179, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5831065929794520576, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
       propertyPath: m_Name
       value: Skeleton
@@ -1162,6 +1195,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8649607802554079012, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: _defaultPatrolPath
+      value: 
+      objectReference: {fileID: 623477404}
+    - target: {fileID: 8920887300545211756, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
       propertyPath: _defaultPatrolPath
       value: 
       objectReference: {fileID: 623477404}
@@ -1222,6 +1259,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3501753597139999179, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5831065929794520576, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
       propertyPath: m_Name
       value: Skeleton (1)
@@ -1231,6 +1272,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8649607802554079012, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: _defaultPatrolPath
+      value: 
+      objectReference: {fileID: 930266661}
+    - target: {fileID: 8920887300545211756, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
       propertyPath: _defaultPatrolPath
       value: 
       objectReference: {fileID: 930266661}
@@ -5320,7 +5365,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.86300004, y: 0.9131829}
   m_AnchorMax: {x: 0.96150506, y: 1}
-  m_AnchoredPosition: {x: -1595.8638, y: -0.7500305}
+  m_AnchoredPosition: {x: -1595.8638, y: 0}
   m_SizeDelta: {x: 81.6816, y: 1.5001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &926345661
@@ -5525,7 +5570,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1168819155}
-  - component: {fileID: 1168819156}
   m_Layer: 0
   m_Name: SpawnerCoin
   m_TagString: Untagged
@@ -5548,19 +5592,6 @@ Transform:
   m_Father: {fileID: 351682351}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1168819156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168819154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86dc9b481581c9b46a4f00d3ff2f0345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 3570840286492811054, guid: dedbc95793c8cd841a01f067dc389994, type: 3}
 --- !u!1 &1262278838
 GameObject:
   m_ObjectHideFlags: 0
@@ -5697,7 +5728,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1417483257}
-  - component: {fileID: 1417483258}
   m_Layer: 0
   m_Name: SpawnerCoin (1)
   m_TagString: Untagged
@@ -5720,19 +5750,6 @@ Transform:
   m_Father: {fileID: 351682351}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1417483258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1417483256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86dc9b481581c9b46a4f00d3ff2f0345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 3570840286492811054, guid: dedbc95793c8cd841a01f067dc389994, type: 3}
 --- !u!1 &1474137450
 GameObject:
   m_ObjectHideFlags: 0
@@ -6000,7 +6017,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1618063072}
-  - component: {fileID: 1618063073}
   m_Layer: 0
   m_Name: SpawnerAidKit (1)
   m_TagString: Untagged
@@ -6023,19 +6039,6 @@ Transform:
   m_Father: {fileID: 351682351}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1618063073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618063071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86dc9b481581c9b46a4f00d3ff2f0345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 8623759018966105865, guid: 3f45c54d3d0709e47bc28e836cefc97b, type: 3}
 --- !u!1 &1630588027
 GameObject:
   m_ObjectHideFlags: 0
@@ -6621,7 +6624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.86300004, y: 0.9131829}
   m_AnchorMax: {x: 0.96150506, y: 1}
-  m_AnchoredPosition: {x: -1.5, y: -1.500061}
+  m_AnchoredPosition: {x: -1.5, y: 0}
   m_SizeDelta: {x: -0.19110107, y: 3.0001526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1647730864
@@ -7331,7 +7334,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1758381036}
-  - component: {fileID: 1758381037}
   m_Layer: 0
   m_Name: SpawnerCoin (2)
   m_TagString: Untagged
@@ -7354,19 +7356,6 @@ Transform:
   m_Father: {fileID: 351682351}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1758381037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758381035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86dc9b481581c9b46a4f00d3ff2f0345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 3570840286492811054, guid: dedbc95793c8cd841a01f067dc389994, type: 3}
 --- !u!212 &120009903425065456
 SpriteRenderer:
   m_ObjectHideFlags: 0

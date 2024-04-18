@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
-using System.Linq;
-using Unity.Burst.CompilerServices;
+using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CapsuleCollider2D))]
-[RequireComponent(typeof(Health))]
-public class Fighter : MonoBehaviour, IListenerAnimationEvent
+[RequireComponent(typeof(CapsuleCollider2D), typeof(Health), typeof(ActionScheduler))]
+public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnimationEvent, IAction
 {
     [SerializeField] private float _attackTimeout;
     [SerializeField] private float _damage;
@@ -16,40 +14,46 @@ public class Fighter : MonoBehaviour, IListenerAnimationEvent
     [SerializeField] private Animator _animator;
     [SerializeField] private AnimationEventController _animationEventController;
 
+    private ActionScheduler _actionScheduler;
     private CapsuleCollider2D _collider;
     private Health _health;
     private float _currentAttackTimeout;
     private Coroutine _jobRunTimerAttack;
+    private IDamageable _target;
+    private bool isAttack;
 
     public float Damage => _damage;
+    public float DistanceDamage => _distanceDamage;
+    public Vector3 Position => transform.position;
 
-    public event Action TookDamage;
-
-    private void OnEnable()
-    {
-        _animationEventController.AddAction(TypeAnimationEvent.StartAnimationtAttack, this, AttemptAttackTarget);
-    }
+    public event Action<IDamageDealer> TookDamage;
 
     private void OnDisable()
     {
         CancelTimerAttack();
-        _animationEventController.RemoveAction(TypeAnimationEvent.StartAnimationtAttack, this, AttemptAttackTarget);
+        _animationEventController.RemoveAction(TypeAnimationEvent.StartAnimationtAttack, this, HandleAttack);
+        isAttack = false;
     }
 
     private void Start()
     {
+        _actionScheduler = GetComponent<ActionScheduler>();
         _collider = GetComponent<CapsuleCollider2D>();
         _health = GetComponent<Health>();
+        _animationEventController.AddAction(TypeAnimationEvent.StartAnimationtAttack, this, HandleAttack);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(IDamageDealer damageDealer)
     {
-        _health.TakeDamage(damage);
-        TookDamage?.Invoke();
+        _health.TakeDamage(damageDealer.Damage);
+        TookDamage?.Invoke(damageDealer);
     }
 
     public bool CanAttack()
     {
+        if (isAttack)
+            return false;
+
         if (_health.IsDied)
             return false;
 
@@ -61,40 +65,113 @@ public class Fighter : MonoBehaviour, IListenerAnimationEvent
 
     public void Attack()
     {
+        _actionScheduler.StartAction(this);
+        isAttack = true;
         CancelTimerAttack();
         _jobRunTimerAttack = StartCoroutine(RunTimerAttack());
         _animator.SetTrigger(AnimatorCharacterManager.Instance.Params.Attack);
     }
 
-    public bool CanHitTarget(float distance) 
+    public void Attack(Fighter fighter)
     {
-        RaycastHit2D[] hits = GetHist(distance);
+        _target = fighter;
+        Attack();
+    }
 
-        if (hits.Length == 0)
+    public bool CanHitTarget(IDamageable target)
+    {
+        IDamageable damageable = FindTarget();
+
+        if (damageable == null) 
             return false;
 
-        hits = hits.OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position)).ToArray();
-        return hits[0].transform.TryGetComponent(out Fighter fighter);
+        if (damageable != target)
+            return false;
+
+        return true;
     }
 
-    private void AttemptAttackTarget()
+    public bool HasTargetsInRadius(float radius, out IEnumerable<IDamageable> damageables)
     {
-        RaycastHit2D[] hits = GetHist(_distanceDamage);
+        damageables = null;
+        bool result = false;
+        float height = _collider.size.y / 2;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y + height), radius, _layerDamageble);
 
-        foreach (RaycastHit2D hit in hits)
+        if (colliders.Length < 0)
+            return result;
+
+        List<IDamageable> foundDamageables = new List<IDamageable>();
+
+        foreach (Collider2D collider in colliders)
         {
-            if (hit.transform.TryGetComponent(out Fighter fighter))
-                fighter.TakeDamage(Damage);
+            if (collider.TryGetComponent(out IDamageable damageable))
+            {
+                foundDamageables.Add(damageable);
+                result = true;
+            }
         }
+
+        damageables = foundDamageables;
+        return result;
     }
 
-    private RaycastHit2D[] GetHist(float distance)
+    public void Cancel()
+    {
+        CancelAttack();
+    }
+
+    private void HandleAttack()
+    {
+        if (_target == null)
+        {
+            IDamageable target = FindTarget();
+
+            if (target == null)
+            {
+                CancelAttack();
+                return;
+            }
+
+            _target = target;
+        }
+
+        AttackTarget();
+    }
+
+    private void AttackTarget()
+    {
+        _target.TakeDamage(this);
+        CancelAttack();
+    }
+
+    private void CancelAttack()
+    {
+        _animator.ResetTrigger(AnimatorCharacterManager.Instance.Params.Attack);
+        _target = null;
+        isAttack = false;
+    }
+
+    private IDamageable FindTarget()
+    {
+        RaycastHit2D hit = GetHit();
+
+        if (hit.collider == null)
+            return null;
+
+        if (hit.transform.TryGetComponent(out IDamageable damageable) == false)
+            return null;
+
+        return damageable;
+    }
+
+    private RaycastHit2D GetHit()
     {
         float height = _collider.size.y / 2;
         Vector3 offset = new Vector2(transform.localScale.normalized.x * (_radiusDamage / 2), height);
         Vector2 direction = new Vector2(transform.localScale.normalized.x, 0);
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position + offset, _radiusDamage, direction, distance, _layerDamageble);
-        return hits;
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position + offset, _radiusDamage, direction, _distanceDamage, _layerDamageble);
+        return hit;
     }
 
     private IEnumerator RunTimerAttack()
