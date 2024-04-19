@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Movement), typeof(Fighter), typeof(Health))]
-public class AIEnemyController : MonoBehaviour
+[RequireComponent(typeof(Mover), typeof(Fighter), typeof(Health))]
+public class AIEnemy : MonoBehaviour
 {
     [SerializeField] private List<State> _states;
 
-    private Movement _movement;
+    private Mover _mover;
     private Fighter _fighter;
     private Health _health;
     private State _currentState;
@@ -31,7 +31,7 @@ public class AIEnemyController : MonoBehaviour
 
     private void Start()
     {
-        _movement = GetComponent<Movement>();
+        _mover = GetComponent<Mover>();
         _fighter = GetComponent<Fighter>();
         _health = GetComponent<Health>();
         _health.Died += OnDied;
@@ -83,7 +83,7 @@ public class AIEnemyController : MonoBehaviour
     private void OnDied()
     {
         enabled = false;
-        _movement.enabled = false;
+        _mover.enabled = false;
         _fighter.enabled = false;
         _health.enabled = false;
     }

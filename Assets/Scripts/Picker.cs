@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(Player))]
 public class Picker : MonoBehaviour
 {
-    private PlayerController _playerController;
+    private Player _playerController;
 
     private void Start()
     {
-        _playerController = GetComponent<PlayerController>();
+        _playerController = GetComponent<Player>();
     }
 
     public void TakeItem(Item item)

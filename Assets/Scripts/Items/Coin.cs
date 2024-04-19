@@ -3,8 +3,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCoin", menuName = "Item/Coin", order = 0)]
 public class Coin : ActionItem
 {
-    public override void Use(PlayerController player)
+    public override void Use(Player player)
     {
-        ScoreManager.Instance.AddCoins(1);
+        if (player.TryGetComponent(out СoinСounter scoreManager) == false)
+        {
+            throw new System.InvalidOperationException("Для взаимодействия с аптечкой необходимо иметь здоровье!");
+        }
+
+        scoreManager.AddCoins(1);
     }
 }

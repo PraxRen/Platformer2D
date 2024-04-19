@@ -7,14 +7,14 @@ public abstract class Transition : MonoBehaviour
     public bool NeedTransit { get; protected set; }
     public State CurrentState { get; private set; }
     public State TargetState => _targetState;
-    protected AIEnemyController AIController { get; private set; }
+    protected AIEnemy AIEnemy { get; private set; }
 
-    public void Initialize(AIEnemyController aiController, State currentState)
+    public void Initialize(AIEnemy aiEnemy, State currentState)
     {
-        RunActionBeforeInitialize(aiController, currentState);
-        AIController = aiController;
+        RunActionBeforeInitialize(aiEnemy, currentState);
+        AIEnemy = aiEnemy;
         CurrentState = currentState;
-        RunActionAfterInitialize(aiController, currentState);
+        RunActionAfterInitialize(aiEnemy, currentState);
     }
 
     public virtual void Activate() { }
@@ -26,9 +26,9 @@ public abstract class Transition : MonoBehaviour
         RunActionAfterDeactivate();
     } 
 
-    protected virtual void RunActionBeforeInitialize(AIEnemyController aiController, State currentState) { }
+    protected virtual void RunActionBeforeInitialize(AIEnemy aiEnemy, State currentState) { }
 
-    protected virtual void RunActionAfterInitialize(AIEnemyController aiController, State currentState) { }
+    protected virtual void RunActionAfterInitialize(AIEnemy aiEnemy, State currentState) { }
 
     protected virtual void RunActionBeforeDeactivate() { }
 

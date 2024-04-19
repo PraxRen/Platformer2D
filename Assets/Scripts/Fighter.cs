@@ -12,7 +12,7 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
     [SerializeField] private float _distanceDamage;
     [SerializeField] private LayerMask _layerDamageble;
     [SerializeField] private Animator _animator;
-    [SerializeField] private AnimationEventController _animationEventController;
+    [SerializeField] private HandlerAnimationEvent _handlerAnimationEvent;
 
     private ActionScheduler _actionScheduler;
     private CapsuleCollider2D _collider;
@@ -22,16 +22,16 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
     private IDamageable _target;
     private bool isAttack;
 
+    public event Action<IDamageDealer> TookDamage;
+
     public float Damage => _damage;
     public float DistanceDamage => _distanceDamage;
     public Vector3 Position => transform.position;
 
-    public event Action<IDamageDealer> TookDamage;
-
     private void OnDisable()
     {
         CancelTimerAttack();
-        _animationEventController.RemoveAction(TypeAnimationEvent.StartAnimationtAttack, this, HandleAttack);
+        _handlerAnimationEvent.RemoveAction(TypeAnimationEvent.StartAnimationtAttack, this, HandleAttack);
         isAttack = false;
     }
 
@@ -40,7 +40,7 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
         _actionScheduler = GetComponent<ActionScheduler>();
         _collider = GetComponent<CapsuleCollider2D>();
         _health = GetComponent<Health>();
-        _animationEventController.AddAction(TypeAnimationEvent.StartAnimationtAttack, this, HandleAttack);
+        _handlerAnimationEvent.AddAction(TypeAnimationEvent.StartAnimationtAttack, this, HandleAttack);
     }
 
     public void TakeDamage(IDamageDealer damageDealer)
@@ -69,7 +69,7 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
         isAttack = true;
         CancelTimerAttack();
         _jobRunTimerAttack = StartCoroutine(RunTimerAttack());
-        _animator.SetTrigger(AnimatorCharacterManager.Instance.Params.Attack);
+        _animator.SetTrigger(CharacterAnimatorData.Params.Attack);
     }
 
     public void Attack(Fighter fighter)
@@ -147,7 +147,7 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
 
     private void CancelAttack()
     {
-        _animator.ResetTrigger(AnimatorCharacterManager.Instance.Params.Attack);
+        _animator.ResetTrigger(CharacterAnimatorData.Params.Attack);
         _target = null;
         isAttack = false;
     }

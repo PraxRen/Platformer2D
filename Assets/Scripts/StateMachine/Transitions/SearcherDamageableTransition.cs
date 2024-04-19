@@ -18,9 +18,9 @@ public class SearcherDamageableTransition : Transition
         _jobFind = StartCoroutine(Find());
     }
 
-    protected override void RunActionBeforeInitialize(AIEnemyController aiController, State currentState)
+    protected override void RunActionBeforeInitialize(AIEnemy aiEnemy, State currentState)
     {
-        if (aiController.TryGetComponent(out _fighter) == false)
+        if (aiEnemy.TryGetComponent(out _fighter) == false)
         {
             throw new InvalidOperationException($"Для инициализации перехода \"{GetType().Name}\" необходим компонент \"{nameof(Fighter)}\"!");
         }

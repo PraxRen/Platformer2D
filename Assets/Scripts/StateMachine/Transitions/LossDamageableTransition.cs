@@ -24,7 +24,7 @@ public class LossDamageableTransition : Transition
         _jobFind = StartCoroutine(Find());
     }
 
-    protected override void RunActionBeforeInitialize(AIEnemyController aiController, State currentState)
+    protected override void RunActionBeforeInitialize(AIEnemy aiEnemy, State currentState)
     {
         _damageableConsumer = currentState as IDamageableConsumer;
 

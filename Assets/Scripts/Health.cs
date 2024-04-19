@@ -9,17 +9,17 @@ public class Health : MonoBehaviour, IAction
 
     private ActionScheduler _actionScheduler;
 
+    public event Action Died;
+    public event Action<float> ValueChenged;
+
     public bool IsDied { get; private set; }
     public float Value { get; private set; }
-
-    public event Action Died;
-    public event Action<float> Updated;
 
     private void Start()
     {
         _actionScheduler = GetComponent<ActionScheduler>();
         Value = _maxValue;
-        Updated?.Invoke(Value);
+        ValueChenged?.Invoke(Value);
     }
 
     public void TakeDamage(float damage)
@@ -32,12 +32,12 @@ public class Health : MonoBehaviour, IAction
 
         _actionScheduler.StartAction(this);
         Value = Mathf.Max(0, Value - damage);
-        _animator.SetTrigger(AnimatorCharacterManager.Instance.Params.Hit);
+        _animator.SetTrigger(CharacterAnimatorData.Params.Hit);
 
         if (Value == 0)
             Die();
 
-        Updated?.Invoke(Value);
+        ValueChenged?.Invoke(Value);
     }
 
     public void Heal(float value)
@@ -46,12 +46,12 @@ public class Health : MonoBehaviour, IAction
             throw new ArgumentOutOfRangeException(nameof(value));
 
         Value = Mathf.Min(_maxValue, Value + value);
-        Updated?.Invoke(Value);
+        ValueChenged?.Invoke(Value);
     }
 
     public void Cancel()
     {
-        _animator.ResetTrigger(AnimatorCharacterManager.Instance.Params.Hit);
+        _animator.ResetTrigger(CharacterAnimatorData.Params.Hit);
     }
 
     private void Die()
@@ -60,8 +60,8 @@ public class Health : MonoBehaviour, IAction
             return;
 
         IsDied = true;
-        _animator.SetBool(AnimatorCharacterManager.Instance.Params.IsDie, true);
-        _animator.SetTrigger(AnimatorCharacterManager.Instance.Params.Die);
+        _animator.SetBool(CharacterAnimatorData.Params.IsDie, true);
+        _animator.SetTrigger(CharacterAnimatorData.Params.Die);
         Died?.Invoke();
     }
 }

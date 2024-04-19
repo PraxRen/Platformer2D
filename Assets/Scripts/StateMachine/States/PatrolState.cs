@@ -6,15 +6,15 @@ public class PatrolState : State
     [SerializeField] private PatrolPath _defaultPatrolPath;
     [SerializeField] private float _offsetToWaypointPath;
 
-    private Movement _movement;
+    private Mover _mover;
     private Vector3 _waypointPosition;
     private int _currentIndexPath;
 
-    protected override void RunActionBeforeInitialize(AIEnemyController aiController)
+    protected override void RunActionBeforeInitialize(AIEnemy aiEnemy)
     {
-        if (aiController.TryGetComponent(out _movement) == false)
+        if (aiEnemy.TryGetComponent(out _mover) == false)
         {
-            throw new InvalidOperationException($"Для работы состояния \"{GetType().Name}\" необходим компонент \"{nameof(Movement)}\"!");
+            throw new InvalidOperationException($"Для работы состояния \"{GetType().Name}\" необходим компонент \"{nameof(Mover)}\"!");
         }
     }
 
@@ -25,14 +25,14 @@ public class PatrolState : State
 
     protected override void Work()
     {
-        if (Vector2.Distance(_waypointPosition, AIController.transform.position) < _offsetToWaypointPath)
+        if (Vector2.Distance(_waypointPosition, AIEnemy.transform.position) < _offsetToWaypointPath)
         {
             _defaultPatrolPath.SetNextIndex(ref _currentIndexPath);
             _waypointPosition = _defaultPatrolPath.GetWaypointPosition(_currentIndexPath);
         }
 
-        Vector2 direction = (_waypointPosition - AIController.transform.position).normalized;
-        _movement.CancelRun();
-        _movement.Move(direction);
+        Vector2 direction = (_waypointPosition - AIEnemy.transform.position).normalized;
+        _mover.CancelRun();
+        _mover.Move(direction);
     }
 }

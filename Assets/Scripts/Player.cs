@@ -1,17 +1,17 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Movement), typeof(Fighter), typeof(Health))]
+[RequireComponent(typeof(Mover), typeof(Fighter), typeof(Health))]
 [RequireComponent(typeof(PlayerInput))]
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private PlayerInput _playerInput;
-    private Movement _movement;
+    private Mover _mover;
     private Fighter _fighter;
     private Health _health;
 
     private void Awake()
     {
-        _movement = GetComponent<Movement>();
+        _mover = GetComponent<Mover>();
         _fighter = GetComponent<Fighter>();
         _health = GetComponent<Health>();
         _playerInput = GetComponent<PlayerInput>();
@@ -35,9 +35,9 @@ public class PlayerController : MonoBehaviour
         _playerInput.Attack -= OnAttack;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        _movement.Move(_playerInput.DirectionMove);
+        _mover.Move(_playerInput.DirectionMove);
     }
 
     private void OnAttack()
@@ -48,23 +48,23 @@ public class PlayerController : MonoBehaviour
 
     private void OnRun()
     {
-        _movement.Run();
+        _mover.Run();
     }
 
     private void OnCancelRun()
     {
-        _movement.CancelRun();
+        _mover.CancelRun();
     }
 
     private void OnJump()
     {
-        _movement.Jump();
+        _mover.Jump();
     }
 
     private void OnDied()
     {
         enabled = false;
-        _movement.enabled = false;
+        _mover.enabled = false;
         _fighter.enabled = false;
         _health.enabled = false;
     }

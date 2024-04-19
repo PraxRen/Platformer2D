@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AnimationEventController : MonoBehaviour
+public class HandlerAnimationEvent : MonoBehaviour
 {
     private Dictionary<TypeAnimationEvent, List<SettingAnimationEvent>> _actions = new Dictionary<TypeAnimationEvent, List<SettingAnimationEvent>>();
 

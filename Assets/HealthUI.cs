@@ -8,15 +8,15 @@ public class HealthUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _health.Updated += OnUpdated;
+        _health.ValueChenged += OnValueChenged;
     }
 
     private void OnDisable()
     {
-        _health.Updated -= OnUpdated;
+        _health.ValueChenged -= OnValueChenged;
     }
 
-    private void OnUpdated(float value)
+    private void OnValueChenged(float value)
     {
         _text.text = string.Format("{0:f0}", value);
     }

@@ -13,22 +13,22 @@ public abstract class State : MonoBehaviour
     private WaitForSeconds _waitForSeconds;
 
     public StatusState Status { get; private set; }
-    protected AIEnemyController AIController { get; private set; }
+    protected AIEnemy AIEnemy { get; private set; }
 
-    public void Initialize(AIEnemyController aiController)
+    public void Initialize(AIEnemy aiEnemy)
     {
         if (Status != StatusState.None)
             throw new InvalidOperationException($"Состояние \"{GetType().Name}\" уже инициализировано!");
 
         _waitForSeconds = new WaitForSeconds(TimeWaitHandle);
-        RunActionBeforeInitialize(aiController);
-        AIController = aiController;
+        RunActionBeforeInitialize(aiEnemy);
+        AIEnemy = aiEnemy;
 
         foreach (var transition in Transitions)
-            transition.Initialize(aiController, this);
+            transition.Initialize(aiEnemy, this);
 
         UpdateStatus(StatusState.Initialized);
-        RunActionAfterInitialize(aiController);
+        RunActionAfterInitialize(aiEnemy);
     }
 
     public void Enter()
@@ -75,9 +75,9 @@ public abstract class State : MonoBehaviour
 
     protected abstract void Work();
 
-    protected virtual void RunActionBeforeInitialize(AIEnemyController aiController) { }
+    protected virtual void RunActionBeforeInitialize(AIEnemy aiEnemy) { }
 
-    protected virtual void RunActionAfterInitialize(AIEnemyController aiController) { }
+    protected virtual void RunActionAfterInitialize(AIEnemy aiEnemy) { }
 
     protected virtual void RunActionBeforeEnter() { }
 

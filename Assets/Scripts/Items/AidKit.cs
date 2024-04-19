@@ -7,7 +7,7 @@ public class AidKit : ActionItem
 
     public float HealthPoints => _healthPoints;
 
-    public override void Use(PlayerController player)
+    public override void Use(Player player)
     {
         if (player.TryGetComponent(out Health health) == false)
         {

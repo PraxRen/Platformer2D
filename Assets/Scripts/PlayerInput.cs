@@ -7,12 +7,12 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private KeyCode _buttonRun;
     [SerializeField] private KeyCode _buttonAttack;
 
-    public Vector2 DirectionMove { get; private set; }
-
     public event Action Jump;
     public event Action Run;
     public event Action CancelRun;
     public event Action Attack;
+
+    public Vector2 DirectionMove { get; private set; }
 
     private void Update()
     {

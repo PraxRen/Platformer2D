@@ -7,7 +7,7 @@ public class AttackState : State, IDamageableConsumer
     [Range(0, 1)][SerializeField] private float _timeWaitMoveToTarget;
 
     private Fighter _fighter;
-    private Movement _movement;
+    private Mover _mover;
     private IDamageable _currentTarget;
     private WaitForSeconds _waitForSeconds;
     private Coroutine _jobMoveToTatget;
@@ -22,16 +22,16 @@ public class AttackState : State, IDamageableConsumer
         _currentTarget = damageable;
     }
 
-    protected override void RunActionBeforeInitialize(AIEnemyController aiController)
+    protected override void RunActionBeforeInitialize(AIEnemy aiEnemy)
     {
-        if (aiController.TryGetComponent(out _fighter) == false)
+        if (aiEnemy.TryGetComponent(out _fighter) == false)
         {
             throw new InvalidOperationException($"Для инициализации состояния \"{GetType().Name}\" необходим компонент \"{nameof(Fighter)}\"!");
         }
 
-        if (aiController.TryGetComponent(out _movement) == false)
+        if (aiEnemy.TryGetComponent(out _mover) == false)
         {
-            throw new InvalidOperationException($"Для инициализации состояния \"{GetType().Name}\" необходим компонент \"{nameof(Movement)}\"!");
+            throw new InvalidOperationException($"Для инициализации состояния \"{GetType().Name}\" необходим компонент \"{nameof(Mover)}\"!");
         }
 
         _waitForSeconds = new WaitForSeconds(_timeWaitMoveToTarget);
@@ -71,13 +71,13 @@ public class AttackState : State, IDamageableConsumer
     {
         while (Status == StatusState.Entered)
         {
-            Vector2 direction = (_currentTarget.Position - AIController.transform.position).normalized;
-            _movement.LookAtDirection(direction);
+            Vector2 direction = (_currentTarget.Position - AIEnemy.transform.position).normalized;
+            _mover.LookAtDirection(direction);
 
-            if (Vector2.Distance(_currentTarget.Position, AIController.transform.position) >= _fighter.DistanceDamage)
+            if (Vector2.Distance(_currentTarget.Position, AIEnemy.transform.position) >= _fighter.DistanceDamage)
             {
-                _movement.Run();
-                _movement.Move(direction);
+                _mover.Run();
+                _mover.Move(direction);
             }
 
             yield return _waitForSeconds;

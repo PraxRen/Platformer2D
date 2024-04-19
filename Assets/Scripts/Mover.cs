@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider2D), typeof(Rigidbody2D))]
-public class Movement : MonoBehaviour
+public class Mover : MonoBehaviour
 {
     private enum Direction
     {
@@ -29,6 +29,7 @@ public class Movement : MonoBehaviour
     private float _currentJumpTime;
     private float _targetSpeed;
     private Direction _currentLookDirection;
+    private Vector2 _targetDirectionMove;
 
     private void OnEnable()
     {
@@ -56,6 +57,7 @@ public class Movement : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateCollisionGround();
+        HandleMove();
         HandleJump();
         HandleFreeFall();
         UpdateAnimations();
@@ -71,7 +73,6 @@ public class Movement : MonoBehaviour
 
         _isJump = true;
         _currentJumpTime = 0;
-        _rigidbody2D.AddForce(Vector2.up * _jumpForce);
     }
 
     public void Run()
@@ -89,21 +90,7 @@ public class Movement : MonoBehaviour
 
     public void Move(Vector2 direction)
     {
-        if (direction.magnitude == 0)
-        {
-            _targetSpeed = 0;
-            return;
-        }
-
-        if (_isRun)
-            _targetSpeed = _speedRun;
-        else
-            _targetSpeed = _speedWalk;
-
-        LookAtDirection(direction);
-        Vector2 targetVelocity = direction.normalized * _targetSpeed;
-        targetVelocity.y = _rigidbody2D.velocity.y;
-        _rigidbody2D.velocity = targetVelocity;
+        _targetDirectionMove = direction;
     }
 
     public void LookAtDirection(Vector2 direction)
@@ -123,11 +110,33 @@ public class Movement : MonoBehaviour
         _isGrounded = Physics2D.OverlapCircle(spherePosition, _groundedRadius, _groundLayer);
     }
 
+    private void HandleMove()
+    {
+        if (_targetDirectionMove.magnitude == 0)
+        {
+            _targetSpeed = 0;
+            return;
+        }
+
+        if (_isRun)
+            _targetSpeed = _speedRun;
+        else
+            _targetSpeed = _speedWalk;
+
+        LookAtDirection(_targetDirectionMove);
+        Vector2 targetVelocity = _targetDirectionMove.normalized * _targetSpeed;
+        targetVelocity.y = _rigidbody2D.velocity.y;
+        _rigidbody2D.velocity = targetVelocity;
+    }
+
     private void HandleJump()
     {
         if (_isJump == false)
             return;
-            
+
+        if (_currentJumpTime == 0)
+            _rigidbody2D.AddForce(Vector2.up * _jumpForce);
+
         _currentJumpTime += Time.deltaTime;
 
         if (_currentJumpTime <= _jumpLimitTime)
@@ -156,9 +165,9 @@ public class Movement : MonoBehaviour
 
     private void UpdateAnimations()
     {
-        _animator.SetFloat(AnimatorCharacterManager.Instance.Params.Speed, _targetSpeed);
-        _animator.SetBool(AnimatorCharacterManager.Instance.Params.IsFreeFall, _isFreeFall);
-        _animator.SetBool(AnimatorCharacterManager.Instance.Params.IsJump, _isJump);
+        _animator.SetFloat(CharacterAnimatorData.Params.Speed, _targetSpeed);
+        _animator.SetBool(CharacterAnimatorData.Params.IsFreeFall, _isFreeFall);
+        _animator.SetBool(CharacterAnimatorData.Params.IsJump, _isJump);
     }
 
     private void OnDrawGizmosSelected()
