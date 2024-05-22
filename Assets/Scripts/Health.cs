@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(ActionScheduler))]
-public class Health : MonoBehaviour, IAction
+public class Health : MonoBehaviour, IAction, IAttribute
 {
     [SerializeField] private float _maxValue;
     [SerializeField] private Animator _animator;
@@ -10,16 +10,17 @@ public class Health : MonoBehaviour, IAction
     private ActionScheduler _actionScheduler;
 
     public event Action Died;
-    public event Action<float> ValueChenged;
+    public event Action OnValueChanged;
 
     public bool IsDied { get; private set; }
     public float Value { get; private set; }
+    public float MaxValue => _maxValue;
 
     private void Start()
     {
         _actionScheduler = GetComponent<ActionScheduler>();
         Value = _maxValue;
-        ValueChenged?.Invoke(Value);
+        OnValueChanged?.Invoke();
     }
 
     public void TakeDamage(float damage)
@@ -37,7 +38,7 @@ public class Health : MonoBehaviour, IAction
         if (Value == 0)
             Die();
 
-        ValueChenged?.Invoke(Value);
+        OnValueChanged?.Invoke();
     }
 
     public void Heal(float value)
@@ -46,7 +47,7 @@ public class Health : MonoBehaviour, IAction
             throw new ArgumentOutOfRangeException(nameof(value));
 
         Value = Mathf.Min(_maxValue, Value + value);
-        ValueChenged?.Invoke(Value);
+        OnValueChanged?.Invoke();
     }
 
     public void Cancel()
