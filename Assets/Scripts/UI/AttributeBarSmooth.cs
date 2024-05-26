@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttributeBarSmooth : AttributeBar
 {
-    [SerializeField] private float _speedUpdateValueSlider;
+    [SerializeField] private float _timeUpdateValueSlider;
 
     private Coroutine _jobUpdateValueSlider;
 
@@ -18,15 +17,20 @@ public class AttributeBarSmooth : AttributeBar
 
     private IEnumerator UpdateValueSlider()
     {
+        float startValue = Slider.value;
         float targetValue = Attribute.Value / Attribute.MaxValue;
+        float elapsedTime = 0f;
+        float delta = Mathf.Abs(targetValue - startValue);
+        float speedUpdate = delta / _timeUpdateValueSlider;
 
-        while(Mathf.Approximately(Slider.value, targetValue) == false)
+        while (Mathf.Approximately(Slider.value, targetValue) == false)
         {
-            Slider.value = Mathf.MoveTowards(Slider.value, targetValue, _speedUpdateValueSlider * Time.deltaTime);
+            Slider.value = Mathf.Lerp(startValue, targetValue, speedUpdate * elapsedTime / delta);
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         Slider.value = targetValue;
-       _jobUpdateValueSlider = null;
+        _jobUpdateValueSlider = null;
     }
 }

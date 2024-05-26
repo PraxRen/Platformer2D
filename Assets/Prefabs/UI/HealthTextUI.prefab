@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 920431281122530673, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 920431281122530673, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
       propertyPath: m_AnchorMax.x
@@ -38,11 +38,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 920431281122530673, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 50
+      value: 5.9511
       objectReference: {fileID: 0}
     - target: {fileID: 920431281122530673, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 1.4137
       objectReference: {fileID: 0}
     - target: {fileID: 920431281122530673, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -74,11 +74,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 920431281122530673, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -9.6312
       objectReference: {fileID: 0}
     - target: {fileID: 920431281122530673, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 8.28
       objectReference: {fileID: 0}
     - target: {fileID: 920431281122530673, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -92,9 +92,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1286505184143459321, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
+      propertyPath: m_fontSize
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1286505184143459321, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8252543410037179207, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
       propertyPath: m_Name
-      value: AttributeTextUI
+      value: HealthTextUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758914633331906343, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074423265677702038, guid: 38bc81bfc2cbe4046a947952191129f6, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

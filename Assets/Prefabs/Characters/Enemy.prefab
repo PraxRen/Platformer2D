@@ -292,11 +292,44 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5528881199155520138}
   m_SourcePrefab: {fileID: 100100000, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
+--- !u!114 &300516352313470053 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8456522396556442661, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
+  m_PrefabInstance: {fileID: 8174099668393168960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232508055645582254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8daa2e97438f93c4b95caac14d41ce50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2706508407901117695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6124701265134570687, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
   m_PrefabInstance: {fileID: 8174099668393168960}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5944340143395960735 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2526156048432326623, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
+  m_PrefabInstance: {fileID: 8174099668393168960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232508055645582254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae4fb87aa76eb6438eda5aef42e2952, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6673271081041069656 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3309025212206519832, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
+  m_PrefabInstance: {fileID: 8174099668393168960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac9e7444373854b94d09452bd06419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7232508055645582254 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1526504317468632046, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
@@ -314,6 +347,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb392f6a32fa53429305978695fa8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: {fileID: 6673271081041069656}
+  _mover: {fileID: 5944340143395960735}
+  _fighter: {fileID: 300516352313470053}
   _states:
   - {fileID: 5728094856793069762}
   - {fileID: 5925267049787170749}

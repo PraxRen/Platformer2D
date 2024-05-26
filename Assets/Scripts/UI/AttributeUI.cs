@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class AttributeBar : MonoBehaviour
+public abstract class AttributeUI : MonoBehaviour
 {
-    [SerializeField] protected Slider Slider;
     [SerializeField] private MonoBehaviour _attributeMonoBehaviour;
 
     protected IAttribute Attribute { get; private set; }
@@ -32,8 +30,5 @@ public class AttributeBar : MonoBehaviour
         Attribute.OnValueChanged -= ValueChanged;
     }
 
-    protected virtual void ValueChanged()
-    {
-        Slider.value = Attribute.Value / Attribute.MaxValue;
-    }
+    protected abstract void ValueChanged();
 }

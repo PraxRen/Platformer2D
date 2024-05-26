@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: _speedRun
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6673271081041069656, guid: fd1ac7c18b483394b952763b099d484c, type: 3}
+      propertyPath: _maxValue
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6783142428032256227, guid: fd1ac7c18b483394b952763b099d484c, type: 3}
       propertyPath: m_Simulated
       value: 1

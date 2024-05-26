@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 75240355076631463, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_PresetInfoIsWorld
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 349021499855930196, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_Name
@@ -24,9 +24,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2033562191962745738, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5128712842629591342, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302869701077340926, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7857961178912897948, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_Color.r
@@ -42,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_AnchorMax.x
@@ -98,11 +106,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -9.650881
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 10.953562
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -141,8 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9214a8023a878d48859a299125a0497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Slider: {fileID: 6619148257779041124}
   _attributeMonoBehaviour: {fileID: 0}
+  Slider: {fileID: 6619148257779041124}
 --- !u!114 &6619148257779041124 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2033562191962745738, guid: b094d806493a7d24e8d9134e775cec42, type: 3}

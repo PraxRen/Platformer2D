@@ -532,6 +532,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428219673}
   m_CullTransparentMesh: 1
+--- !u!1 &464953121 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4058073880539755540, guid: 1dc4deaf4ce5c3e48b50cf28b375728f, type: 3}
+  m_PrefabInstance: {fileID: 1668874372}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &500267279
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,17 +734,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &529469630 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3249612284161764789, guid: 1dc4deaf4ce5c3e48b50cf28b375728f, type: 3}
-  m_PrefabInstance: {fileID: 1668874372}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faac9e7444373854b94d09452bd06419, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &550932068
 GameObject:
   m_ObjectHideFlags: 0
@@ -5665,7 +5659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -5696,7 +5690,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 529469630}
+      - m_Target: {fileID: 2024391326}
         m_TargetAssemblyTypeName: Health, Assembly-CSharp
         m_MethodName: Heal
         m_Mode: 4
@@ -5852,12 +5846,27 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7927881187666377154, guid: 1dc4deaf4ce5c3e48b50cf28b375728f, type: 3}
   m_PrefabInstance: {fileID: 1668874372}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 464953121}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6aa58714bcc92f44a8cabe6f11678a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1313949813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464953121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf3e77a8b13fac4c972b1dad42e55f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonJump: 32
+  _buttonRun: 304
+  _buttonAttack: 316
 --- !u!1 &1365225472
 GameObject:
   m_ObjectHideFlags: 0
@@ -5968,9 +5977,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1196568637344053776, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
-      objectReference: {fileID: 0}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 3643720028188363804, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6059,18 +6068,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
-    - target: {fileID: 5109356845807928137, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5362461082974881169, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
       propertyPath: _attributeMonoBehaviour
       value: 
-      objectReference: {fileID: 529469630}
-    - target: {fileID: 6619148257779041124, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2024391326}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6136,13 +6137,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -2178314633700378285, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
+      propertyPath: _timeUpdateValueSlider
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -2178314633700378285, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
       propertyPath: _attributeMonoBehaviour
       value: 
-      objectReference: {fileID: 529469630}
-    - target: {fileID: -2178314633700378285, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
-      propertyPath: _speedUpdateValueSlider
-      value: 0.1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2024391326}
     - target: {fileID: 550950370827455485, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
       propertyPath: m_Camera
       value: 
@@ -6239,10 +6240,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5897000114972406436, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6055914179672463959, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
       propertyPath: m_Name
       value: HealthBarSmooth
@@ -6333,7 +6330,7 @@ PrefabInstance:
     - target: {fileID: 714797269834916067, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
       propertyPath: _attributeMonoBehaviour
       value: 
-      objectReference: {fileID: 529469630}
+      objectReference: {fileID: 2024391326}
     - target: {fileID: 2889908491326622288, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6418,26 +6415,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3821188352641473752, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
-      propertyPath: m_fontSize
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821188352641473752, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 1.2
-      objectReference: {fileID: 0}
     - target: {fileID: 6222830816274029670, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
       propertyPath: m_Name
       value: HealthTextUI
       objectReference: {fileID: 0}
-    - target: {fileID: 6427710650631171255, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6724130818369243142, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
-      objectReference: {fileID: 0}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7169,7 +7154,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4058073880539755540, guid: 1dc4deaf4ce5c3e48b50cf28b375728f, type: 3}
+      insertIndex: 7
+      addedObject: {fileID: 1313949813}
   m_SourcePrefab: {fileID: 100100000, guid: 1dc4deaf4ce5c3e48b50cf28b375728f, type: 3}
 --- !u!1 &1672774669
 GameObject:
@@ -7751,6 +7739,7 @@ GameObject:
   - component: {fileID: 1817167905}
   - component: {fileID: 1817167904}
   - component: {fileID: 1817167903}
+  - component: {fileID: 1817167906}
   m_Layer: 5
   m_Name: ButtonDamage
   m_TagString: Untagged
@@ -7792,7 +7781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -7822,19 +7811,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1817167904}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 529469630}
-        m_TargetAssemblyTypeName: Health, Assembly-CSharp
-        m_MethodName: TakeDamage
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 25
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1817167904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7873,6 +7850,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817167901}
   m_CullTransparentMesh: 1
+--- !u!114 &1817167906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817167901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c80c9992793964469912dcd937aa7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 1817167903}
+  _damage: 25
+  _damageableMonoBehaviour: {fileID: 2024391326}
+--- !u!114 &2024391326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 41117067749622242, guid: 1dc4deaf4ce5c3e48b50cf28b375728f, type: 3}
+  m_PrefabInstance: {fileID: 1668874372}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac9e7444373854b94d09452bd06419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &120009903425065456
 SpriteRenderer:
   m_ObjectHideFlags: 0

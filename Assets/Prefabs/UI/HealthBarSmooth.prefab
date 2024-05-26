@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 75240355076631463, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_PresetInfoIsWorld
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 349021499855930196, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_Name
@@ -27,6 +27,14 @@ PrefabInstance:
     - target: {fileID: 2033562191962745738, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_Value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128712842629591342, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128712842629591342, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6302869701077340926, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_SortingOrder
@@ -46,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_AnchorMax.x
@@ -102,11 +110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -9.650881
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 9.73
       objectReference: {fileID: 0}
     - target: {fileID: 8462899493118846194, guid: b094d806493a7d24e8d9134e775cec42, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -156,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0bc7f0b36fce643b35ee38397e335d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Slider: {fileID: 5541044795374924425}
   _attributeMonoBehaviour: {fileID: 0}
-  _speedUpdateValueSlider: 0.2
+  Slider: {fileID: 5541044795374924425}
+  _speedUpdateValueSlider: 0.1
+  _timeUpdateValueSlider: 0

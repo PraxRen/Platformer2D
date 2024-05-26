@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CapsuleCollider2D), typeof(Health), typeof(ActionScheduler))]
+[RequireComponent(typeof(CapsuleCollider2D), typeof(ActionScheduler))]
 public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnimationEvent, IAction
 {
     [SerializeField] private float _attackTimeout;
@@ -13,20 +13,38 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
     [SerializeField] private LayerMask _layerDamageble;
     [SerializeField] private Animator _animator;
     [SerializeField] private HandlerAnimationEvent _handlerAnimationEvent;
+    [SerializeField] private MonoBehaviour _damageableMonoBehaviour;
 
+    private IDamageable _damageable;
+    private IDamageable _target;
     private ActionScheduler _actionScheduler;
     private CapsuleCollider2D _collider;
-    private Health _health;
     private float _currentAttackTimeout;
     private Coroutine _jobRunTimerAttack;
-    private IDamageable _target;
     private bool isAttack;
 
-    public event Action<IDamageDealer> TookDamage;
+    public event Action<IDamageDealer> OnTookDamage;
 
     public float Damage => _damage;
     public float DistanceDamage => _distanceDamage;
     public Vector3 Position => transform.position;
+    public bool IsDied => _damageable.IsDied;
+
+    private void OnValidate()
+    {
+        if (_damageableMonoBehaviour == null || _damageableMonoBehaviour is IDamageable)
+            return;
+
+        Debug.LogWarning($"{nameof(_damageableMonoBehaviour)} is not {nameof(IDamageable)}");
+        _damageableMonoBehaviour = null;
+    }
+
+    private void Awake()
+    {
+        _damageable = (IDamageable)_damageableMonoBehaviour;
+        _actionScheduler = GetComponent<ActionScheduler>();
+        _collider = GetComponent<CapsuleCollider2D>();
+    }
 
     private void OnDisable()
     {
@@ -37,16 +55,13 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
 
     private void Start()
     {
-        _actionScheduler = GetComponent<ActionScheduler>();
-        _collider = GetComponent<CapsuleCollider2D>();
-        _health = GetComponent<Health>();
         _handlerAnimationEvent.AddAction(TypeAnimationEvent.StartAnimationtAttack, this, HandleAttack);
     }
 
     public void TakeDamage(IDamageDealer damageDealer)
     {
-        _health.TakeDamage(damageDealer.Damage);
-        TookDamage?.Invoke(damageDealer);
+        _damageable.TakeDamage(damageDealer);
+        OnTookDamage?.Invoke(damageDealer);
     }
 
     public bool CanAttack()
@@ -54,7 +69,7 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
         if (isAttack)
             return false;
 
-        if (_health.IsDied)
+        if (_damageable.IsDied)
             return false;
 
         if (_currentAttackTimeout > 0f)

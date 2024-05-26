@@ -1,25 +1,16 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Mover), typeof(Fighter), typeof(Health))]
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(Mover), typeof(Fighter), typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
-    private PlayerInput _playerInput;
-    private Mover _mover;
-    private Fighter _fighter;
-    private Health _health;
-
-    private void Awake()
-    {
-        _mover = GetComponent<Mover>();
-        _fighter = GetComponent<Fighter>();
-        _health = GetComponent<Health>();
-        _playerInput = GetComponent<PlayerInput>();
-    }
+    [SerializeField] private Health _health;
+    [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private Mover _mover;
+    [SerializeField] private Fighter _fighter;
 
     private void OnEnable()
     {
-        _health.Died += OnDied;
+        _health.OnDied += OnDied;
         _playerInput.Jump += OnJump;
         _playerInput.Run += OnRun;
         _playerInput.CancelRun += OnCancelRun;
@@ -28,7 +19,7 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-        _health.Died -= OnDied;
+        _health.OnDied -= OnDied;
         _playerInput.Jump -= OnJump;
         _playerInput.Run -= OnRun;
         _playerInput.CancelRun -= OnCancelRun;
