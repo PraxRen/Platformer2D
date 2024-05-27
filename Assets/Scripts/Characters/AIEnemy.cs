@@ -14,7 +14,7 @@ public class AIEnemy : MonoBehaviour
 
     private void OnEnable()
     {
-        _health.OnDied += OnDied;
+        _health.Died += OnDied;
 
         if (_currentState != null)
             SetCurrentState(_currentState);
@@ -22,7 +22,7 @@ public class AIEnemy : MonoBehaviour
 
     private void OnDisable()
     {
-        _health.OnDied -= OnDied;
+        _health.Died -= OnDied;
 
         if (_currentState != null)
             _currentState.Exit();

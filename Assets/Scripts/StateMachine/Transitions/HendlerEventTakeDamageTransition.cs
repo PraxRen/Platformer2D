@@ -7,7 +7,7 @@ public class HendlerEventTakeDamageTransition : Transition
 
     public override void Activate()
     {
-        _fighter.OnTookDamage += OnTookDamage;
+        _fighter.TookDamage += OnTookDamage;
     }
 
     protected override void RunActionBeforeInitialize(AIEnemy aiEnemy, State currentState)
@@ -20,7 +20,7 @@ public class HendlerEventTakeDamageTransition : Transition
 
     protected override void RunActionBeforeDeactivate()
     {
-        _fighter.OnTookDamage -= OnTookDamage;
+        _fighter.TookDamage -= OnTookDamage;
     }
 
     private void OnTookDamage(IDamageDealer damageDealer)

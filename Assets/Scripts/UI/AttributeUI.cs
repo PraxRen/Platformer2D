@@ -22,12 +22,12 @@ public abstract class AttributeUI : MonoBehaviour
 
     private void OnEnable()
     {
-        Attribute.OnValueChanged += ValueChanged;
+        Attribute.ValueChanged += ValueChanged;
     }
 
     private void OnDisable()
     {
-        Attribute.OnValueChanged -= ValueChanged;
+        Attribute.ValueChanged -= ValueChanged;
     }
 
     protected abstract void ValueChanged();

@@ -6,10 +6,10 @@ public class Health : MonoBehaviour, IDamageable, IAction, IAttribute
     [SerializeField] private float _maxValue;
     [SerializeField] private ActionScheduler _actionScheduler;
 
-    public event Action OnDied;
-    public event Action<IDamageDealer> OnTookDamage;
+    public event Action Died;
+    public event Action<IDamageDealer> TookDamage;
     public event Action CancelTookDamage;
-    public event Action OnValueChanged;
+    public event Action ValueChanged;
 
     public bool IsDied { get; private set; }
     public float Value { get; private set; }
@@ -34,7 +34,7 @@ public class Health : MonoBehaviour, IDamageable, IAction, IAttribute
 
         _actionScheduler.StartAction(this);
         UpdateValue(Value - damageDealer.Damage);
-        OnTookDamage?.Invoke(damageDealer);
+        TookDamage?.Invoke(damageDealer);
 
         if (Value == 0)
             Die();
@@ -54,7 +54,7 @@ public class Health : MonoBehaviour, IDamageable, IAction, IAttribute
     private void UpdateValue(float value)
     {
         Value = Mathf.Clamp(value, 0, _maxValue);
-        OnValueChanged?.Invoke();
+        ValueChanged?.Invoke();
     }
 
     private void Die()
@@ -63,6 +63,6 @@ public class Health : MonoBehaviour, IDamageable, IAction, IAttribute
             return;
 
         IsDied = true;
-        OnDied?.Invoke();
+        Died?.Invoke();
     }
 }

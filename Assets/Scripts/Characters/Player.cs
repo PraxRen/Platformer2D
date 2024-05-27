@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        _health.OnDied += OnDied;
+        _health.Died += OnDied;
         _playerInput.Jump += OnJump;
         _playerInput.Run += OnRun;
         _playerInput.CancelRun += OnCancelRun;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-        _health.OnDied -= OnDied;
+        _health.Died -= OnDied;
         _playerInput.Jump -= OnJump;
         _playerInput.Run -= OnRun;
         _playerInput.CancelRun -= OnCancelRun;

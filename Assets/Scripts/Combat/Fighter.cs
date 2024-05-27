@@ -23,7 +23,7 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
     private Coroutine _jobRunTimerAttack;
     private bool isAttack;
 
-    public event Action<IDamageDealer> OnTookDamage;
+    public event Action<IDamageDealer> TookDamage;
 
     public float Damage => _damage;
     public float DistanceDamage => _distanceDamage;
@@ -61,7 +61,7 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
     public void TakeDamage(IDamageDealer damageDealer)
     {
         _damageable.TakeDamage(damageDealer);
-        OnTookDamage?.Invoke(damageDealer);
+        TookDamage?.Invoke(damageDealer);
     }
 
     public bool CanAttack()

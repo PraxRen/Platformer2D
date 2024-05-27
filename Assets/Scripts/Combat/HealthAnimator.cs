@@ -7,15 +7,15 @@ public class HealthAnimator : MonoBehaviour
 
     private void OnEnable()
     {
-        _health.OnTookDamage += OnTookDamage;
+        _health.TookDamage += OnTookDamage;
         _health.CancelTookDamage += CancelTookDamage;
-        _health.OnDied += OnDied;
+        _health.Died += OnDied;
     }
 
     private void OnDisable()
     {
-        _health.OnTookDamage -= OnTookDamage;
-        _health.OnDied -= OnDied;
+        _health.TookDamage -= OnTookDamage;
+        _health.Died -= OnDied;
     }
 
     private void OnDied()

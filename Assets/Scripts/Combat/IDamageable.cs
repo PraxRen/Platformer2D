@@ -6,7 +6,7 @@ public interface IDamageable
     Vector3 Position { get; }
     bool IsDied { get; }
 
-    event Action<IDamageDealer> OnTookDamage;
+    event Action<IDamageDealer> TookDamage;
 
     void TakeDamage(IDamageDealer damageDealer);
 }
