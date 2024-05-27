@@ -18,6 +18,7 @@ public class Mover : MonoBehaviour
     [SerializeField] private float _fallTimeout;
     [SerializeField] private float _jumpLimitTime;
     [SerializeField] private Animator _animator;
+    [SerializeField] private Transform _graphics;
 
     private Rigidbody2D _rigidbody2D;
     private CapsuleCollider2D _collider;
@@ -101,7 +102,7 @@ public class Mover : MonoBehaviour
             return;
 
         _currentLookDirection = targetDirection;
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        _graphics.localScale = new Vector3(_graphics.localScale.x * -1, _graphics.localScale.y, _graphics.localScale.z);
     }
 
     private void UpdateCollisionGround()

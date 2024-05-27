@@ -261,6 +261,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7403313746369758291, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7403313746369758291, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8456522396556442661, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
       propertyPath: _damage
       value: 10
@@ -350,6 +358,12 @@ MonoBehaviour:
   _health: {fileID: 6673271081041069656}
   _mover: {fileID: 5944340143395960735}
   _fighter: {fileID: 300516352313470053}
+  _ui: {fileID: 7253753267184024569}
   _states:
   - {fileID: 5728094856793069762}
   - {fileID: 5925267049787170749}
+--- !u!1 &7253753267184024569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1574780464066177977, guid: f1d65189c23940e4bbf99816f8b9f6cd, type: 3}
+  m_PrefabInstance: {fileID: 8174099668393168960}
+  m_PrefabAsset: {fileID: 0}

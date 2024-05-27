@@ -7,6 +7,7 @@ public class AIEnemy : MonoBehaviour
     [SerializeField] private Health _health;
     [SerializeField] private Mover _mover;
     [SerializeField] private Fighter _fighter;
+    [SerializeField] private GameObject _ui;
     [SerializeField] private List<State> _states;
 
     private State _currentState;
@@ -80,5 +81,6 @@ public class AIEnemy : MonoBehaviour
         _mover.enabled = false;
         _fighter.enabled = false;
         _health.enabled = false;
+        _ui.SetActive(false);
     }
 }

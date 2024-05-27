@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Mover _mover;
     [SerializeField] private Fighter _fighter;
+    [SerializeField] private GameObject _ui;
 
     private void OnEnable()
     {
@@ -58,5 +59,6 @@ public class Player : MonoBehaviour
         _mover.enabled = false;
         _fighter.enabled = false;
         _health.enabled = false;
+        _ui.SetActive(false);
     }
 }

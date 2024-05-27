@@ -1169,6 +1169,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2557757237396939197, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557757237396939197, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3501753597139999179, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1312,6 +1320,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2557757237396939197, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557757237396939197, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3501753597139999179, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1387,6 +1403,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1241990050626087249, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557757237396939197, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557757237396939197, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3501753597139999179, guid: 4ec88cb7337bdcf4fb1b0219133c9157, type: 3}
@@ -1490,7 +1514,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 11
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -6046,7 +6070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3643720028188363804, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -9.650881
+      value: -18.73
       objectReference: {fileID: 0}
     - target: {fileID: 3643720028188363804, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6067,6 +6091,10 @@ PrefabInstance:
     - target: {fileID: 4842675248709594042, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
       propertyPath: m_Name
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842675248709594042, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5362461082974881169, guid: 6389f1adce06ebd4fbc4423128b69cf1, type: 3}
       propertyPath: _attributeMonoBehaviour
@@ -6222,7 +6250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2715484379906145777, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -9.650881
+      value: -18.73
       objectReference: {fileID: 0}
     - target: {fileID: 2715484379906145777, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6243,6 +6271,10 @@ PrefabInstance:
     - target: {fileID: 6055914179672463959, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
       propertyPath: m_Name
       value: HealthBarSmooth
+      objectReference: {fileID: 0}
+    - target: {fileID: 6055914179672463959, guid: a57091de8d9e45545811573ef42a3c76, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6397,7 +6429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2889908491326622288, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -9.6312
+      value: -18.71032
       objectReference: {fileID: 0}
     - target: {fileID: 2889908491326622288, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6418,6 +6450,10 @@ PrefabInstance:
     - target: {fileID: 6222830816274029670, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
       propertyPath: m_Name
       value: HealthTextUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222830816274029670, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6724130818369243142, guid: cfd382e4130b7204db3248be9fbeae49, type: 3}
       propertyPath: m_Camera
@@ -7103,6 +7139,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5459433156802204585, guid: 1dc4deaf4ce5c3e48b50cf28b375728f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459433156802204585, guid: 1dc4deaf4ce5c3e48b50cf28b375728f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6351638395859250143, guid: 1dc4deaf4ce5c3e48b50cf28b375728f, type: 3}
       propertyPath: x
       value: 1
@@ -7401,7 +7445,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 11
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
