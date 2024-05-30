@@ -3,11 +3,20 @@ using UnityEngine;
 [RequireComponent(typeof(Mover), typeof(Fighter), typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
+    private static int s_idLast;
+
     [SerializeField] private Health _health;
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private Mover _mover;
     [SerializeField] private Fighter _fighter;
     [SerializeField] private GameObject _ui;
+
+    public int Id { get; private set; }
+
+    private void Awake()
+    {
+        Id = ++s_idLast;
+    }
 
     private void OnEnable()
     {

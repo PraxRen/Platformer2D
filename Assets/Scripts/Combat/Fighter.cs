@@ -106,6 +106,18 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
         return true;
     }
 
+    public bool HasTargetInRadius(float radius, out IDamageable damageable)
+    {
+        damageable = null;
+        float height = _collider.size.y / 2;
+        Collider2D collider = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y + height), radius, _layerDamageble);
+
+        if (collider == null)
+            return false;
+
+        return collider.TryGetComponent(out damageable);
+    }
+
     public bool HasTargetsInRadius(float radius, out IEnumerable<IDamageable> damageables)
     {
         damageables = null;
