@@ -6,8 +6,8 @@ public class ActivatorSkill : MonoBehaviour
 {
     [SerializeField] private Skill _skill;
     [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private Player _player;
-    [SerializeField] private float _cooldown = 10f;
+    [SerializeField] private Character _character;
+
 
     private Timer _timerDuration;
     private Timer _timerCooldown;
@@ -21,10 +21,25 @@ public class ActivatorSkill : MonoBehaviour
     public IReadOnlyTimer TimerCooldown => _timerCooldown;
     public Skill Skill => _skill;
 
+    private void OnValidate()
+    {
+        if (_skill == null)
+            return;
+
+        if (_character == null)
+            return;
+
+        if (_skill.TryValidate(_character, out string warning))
+            return;
+
+        Debug.LogWarning(warning);
+        _skill = null;
+    }
+
     private void Awake()
     {
         _timerDuration = new Timer(_skill.Duration);
-        _timerCooldown = new Timer(_cooldown);
+        _timerCooldown = new Timer(_skill.Cooldown);
     }
 
     private void OnEnable()
@@ -52,9 +67,6 @@ public class ActivatorSkill : MonoBehaviour
         if (_timerDuration.IsExpired == false)
             return;
 
-        if (_skill.CanActivate(_player) == false)
-            return;
-
         _jobTimerDuration = StartCoroutine(RunTimer(_timerDuration));
     }
 
@@ -78,7 +90,6 @@ public class ActivatorSkill : MonoBehaviour
     {
         Deactivate();
         _jobTimerCooldown = StartCoroutine(RunTimer(_timerCooldown));
-
     }
 
     private void CancelRunTimer(Coroutine coroutine, Timer timer)
@@ -94,13 +105,21 @@ public class ActivatorSkill : MonoBehaviour
 
     private void Activate()
     {
-        _skill.Activate(_player);
+        if (_skill.TryActivate(_character) == false)
+        {
+            throw new InvalidOperationException($"Ошибка активации {nameof(_skill)} у {nameof(_character)}");
+        }
+
         Activated?.Invoke(this);
     }
 
     private void Deactivate()
     {
-        _skill.Deactivate(_player);
+        if (_skill.TryDeactivate(_character) == false)
+        {
+            throw new InvalidOperationException($"Ошибка деактивации {nameof(_skill)} у {nameof(_character)}");
+        }
+
         Deactivated?.Invoke(this);
     }
 }

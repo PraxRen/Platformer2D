@@ -1,73 +1,48 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Mover), typeof(Fighter), typeof(PlayerInput))]
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    private static int s_idLast;
-
-    [SerializeField] private Health _health;
     [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private Mover _mover;
-    [SerializeField] private Fighter _fighter;
-    [SerializeField] private GameObject _ui;
 
-    public int Id { get; private set; }
-
-    private void Awake()
+    private void Update()
     {
-        Id = ++s_idLast;
+        Mover.Move(_playerInput.DirectionMove);
     }
 
-    private void OnEnable()
+    private void OnAttack()
     {
-        _health.Died += OnDied;
+        if (Fighter.CanAttack())
+            Fighter.Attack();
+    }
+
+    private void OnRun()
+    {
+        Mover.Run();
+    }
+
+    private void OnCancelRun()
+    {
+        Mover.CancelRun();
+    }
+
+    private void OnJump()
+    {
+        Mover.Jump();
+    }
+
+    protected override void HandleEnable()
+    {
         _playerInput.Jump += OnJump;
         _playerInput.Run += OnRun;
         _playerInput.CancelRun += OnCancelRun;
         _playerInput.Attack += OnAttack;
     }
 
-    private void OnDisable()
+    protected override void HandleDisable()
     {
-        _health.Died -= OnDied;
         _playerInput.Jump -= OnJump;
         _playerInput.Run -= OnRun;
         _playerInput.CancelRun -= OnCancelRun;
         _playerInput.Attack -= OnAttack;
-    }
-
-    private void Update()
-    {
-        _mover.Move(_playerInput.DirectionMove);
-    }
-
-    private void OnAttack()
-    {
-        if (_fighter.CanAttack())
-            _fighter.Attack();
-    }
-
-    private void OnRun()
-    {
-        _mover.Run();
-    }
-
-    private void OnCancelRun()
-    {
-        _mover.CancelRun();
-    }
-
-    private void OnJump()
-    {
-        _mover.Jump();
-    }
-
-    private void OnDied()
-    {
-        enabled = false;
-        _mover.enabled = false;
-        _fighter.enabled = false;
-        _health.enabled = false;
-        _ui.SetActive(false);
     }
 }

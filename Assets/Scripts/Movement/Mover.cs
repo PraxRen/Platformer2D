@@ -94,6 +94,12 @@ public class Mover : MonoBehaviour
         _targetDirectionMove = direction;
     }
 
+    public void Stop()
+    {
+        _targetDirectionMove = Vector2.zero;
+        _rigidbody2D.velocity = Vector2.zero;
+    }
+
     public void LookAtDirection(Vector2 direction)
     {
         Direction targetDirection = direction.x < 0 ? Direction.Left : Direction.Right;

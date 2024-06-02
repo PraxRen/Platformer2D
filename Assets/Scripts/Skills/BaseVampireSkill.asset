@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BaseVampireSkill
   m_EditorClassIdentifier: 
   _duration: 6
+  _cooldown: 3
   _icon: {fileID: 21300000, guid: 68a64096f8521bc458423c0390e84956, type: 3}
-  _radius: 2
-  _power: 25
+  _radius: 3.5
+  _power: 5

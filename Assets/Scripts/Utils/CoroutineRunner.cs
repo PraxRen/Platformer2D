@@ -13,7 +13,7 @@ public class CoroutineRunner : MonoBehaviour
             StopCoroutine(coroutine.Value);
     }
 
-    public void Create(string id, Action action)
+    public void Create(string id, Action action, float waitTime)
     {
         if (string.IsNullOrEmpty(id))
             throw new ArgumentNullException(nameof(id));
@@ -24,7 +24,7 @@ public class CoroutineRunner : MonoBehaviour
         if (_hash.ContainsKey(id))
             return;
 
-        _hash[id] = StartCoroutine(UpdateAction(action));
+        _hash[id] = StartCoroutine(UpdateAction(action, new WaitForSeconds(waitTime)));
     }
 
     public void Destroy(string id)
@@ -36,12 +36,12 @@ public class CoroutineRunner : MonoBehaviour
         _hash.Remove(id);
     }
 
-    private IEnumerator UpdateAction(Action action)
+    private IEnumerator UpdateAction(Action action, WaitForSeconds waitForSeconds)
     {
         while (true)
         {
             action?.Invoke();
-            yield return null;
+            yield return waitForSeconds;
         }
     }
 }

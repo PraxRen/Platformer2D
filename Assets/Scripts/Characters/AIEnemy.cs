@@ -2,31 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIEnemy : MonoBehaviour
+public class AIEnemy : Character
 {
-    [SerializeField] private Health _health;
-    [SerializeField] private Mover _mover;
-    [SerializeField] private Fighter _fighter;
-    [SerializeField] private GameObject _ui;
     [SerializeField] private List<State> _states;
 
     private State _currentState;
-
-    private void OnEnable()
-    {
-        _health.Died += OnDied;
-
-        if (_currentState != null)
-            SetCurrentState(_currentState);
-    }
-
-    private void OnDisable()
-    {
-        _health.Died -= OnDied;
-
-        if (_currentState != null)
-            _currentState.Exit();
-    }
 
     private void Start()
     {
@@ -75,12 +55,15 @@ public class AIEnemy : MonoBehaviour
         SetCurrentState(nextState);
     }
 
-    private void OnDied()
+    protected override void HandleEnable()
     {
-        enabled = false;
-        _mover.enabled = false;
-        _fighter.enabled = false;
-        _health.enabled = false;
-        _ui.SetActive(false);
+        if (_currentState != null)
+            SetCurrentState(_currentState);
+    }
+
+    protected override void HandleDisable()
+    {
+        if (_currentState != null)
+            _currentState.Exit();
     }
 }

@@ -79,6 +79,10 @@ public class AttackState : State, IDamageableConsumer
                 _mover.Run();
                 _mover.Move(direction);
             }
+            else
+            {
+                _mover.Stop();
+            }
 
             yield return _waitForSeconds;
         }
