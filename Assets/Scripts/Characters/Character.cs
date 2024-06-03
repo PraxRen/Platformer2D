@@ -2,12 +2,12 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    private static int s_idLast;
-
     [SerializeField] protected Health Health;
     [SerializeField] protected Mover Mover;
     [SerializeField] protected Fighter Fighter;
     [SerializeField] protected GameObject UI;
+
+    private static int s_idLast;
 
     public int Id { get; private set; }
 

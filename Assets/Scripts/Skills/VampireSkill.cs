@@ -11,16 +11,15 @@ public class VampireSkill : Skill, IDamageDealer
     [SerializeField] private float _radius;
     [SerializeField] private float _power;
 
-    StringBuilder _stringBuilder = new StringBuilder();
+    private StringBuilder _stringBuilder = new StringBuilder();
 
     public float Damage => _power;
 
     public override bool TryValidate(Character character, out string warning)
     {
         bool result = true;
-        Health health = character.GetComponentInChildren<Health>();
 
-        if (health == null)
+        if (character.TryGetComponent(out HealthReferenceHelper healthReferenceHelper) == false && healthReferenceHelper.Health == null)
         {
             _stringBuilder.AppendLine($"У {nameof(character)} отсутстует компонент {nameof(Health)}");
             result = false;
@@ -32,9 +31,9 @@ public class VampireSkill : Skill, IDamageDealer
             result = false;
         }
 
-        if (character.TryGetComponent(out CoroutineRunner coroutineRunner) == false)
+        if (character.TryGetComponent(out CharacterCoroutineRunner coroutineRunner) == false)
         {
-            _stringBuilder.AppendLine($"У {nameof(character)} отсутстует компонент {nameof(CoroutineRunner)}");
+            _stringBuilder.AppendLine($"У {nameof(character)} отсутстует компонент {nameof(CharacterCoroutineRunner)}");
             result = false;
         }
 
@@ -54,18 +53,16 @@ public class VampireSkill : Skill, IDamageDealer
         if (character is null)
             throw new ArgumentNullException(nameof(character));
 
-        Health health = character.GetComponentInChildren<Health>();
-
-        if (health == null)
+        if (character.TryGetComponent(out HealthReferenceHelper healthReferenceHelper) == false && healthReferenceHelper.Health == null)
             return false;
 
-        if (health.IsDied)
+        if (healthReferenceHelper.Health.IsDied)
             return false;
 
         if (character.TryGetComponent(out Fighter fighter) == false)
             return false;
 
-        if (character.TryGetComponent(out CoroutineRunner coroutineRunner) == false)
+        if (character.TryGetComponent(out CharacterCoroutineRunner coroutineRunner) == false)
             return false;
 
         if (character.TryGetComponent(out CapsuleCollider2D collider) == false)
@@ -77,7 +74,7 @@ public class VampireSkill : Skill, IDamageDealer
         float heightOffset = collider.size.y / 2;
         Vector2 offset = new Vector2(0, heightOffset);
         activatorGraphics.Activate(TypeGraphics.VampireSkill, new Vector2(fighter.transform.position.x + offset.x, fighter.transform.position.y + offset.y), new Vector2(_radius, _radius));
-        coroutineRunner.Create(character.Id + IdCoroutine, () => Run(fighter, health, offset), TimeWaitForSeconds);
+        coroutineRunner.Create(character.Id + IdCoroutine, () => Run(fighter, healthReferenceHelper.Health, offset), TimeWaitForSeconds);
         return true;
     }
 
@@ -86,7 +83,7 @@ public class VampireSkill : Skill, IDamageDealer
         if (character is null)
             throw new ArgumentNullException(nameof(character));
 
-        if (character.TryGetComponent(out CoroutineRunner coroutineRunner) == false)
+        if (character.TryGetComponent(out CharacterCoroutineRunner coroutineRunner) == false)
             return false;
 
         if (character.TryGetComponent(out ActivatorGraphics activatorGraphics) == false)
@@ -107,7 +104,8 @@ public class VampireSkill : Skill, IDamageDealer
         if (damageable.IsDied)
             return;
 
+        float healPoint = damageable.CalculateDamage(this);
         damageable.TakeDamage(this);
-        health.Heal(_power);
+        health.Heal(healPoint);
     }
 }

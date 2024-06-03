@@ -40,6 +40,22 @@ public class Health : MonoBehaviour, IDamageable, IAction, IAttribute
             Die();
     }
 
+    public float CalculateDamage(IDamageDealer damageDealer)
+    {
+        if (damageDealer == null)
+            throw new ArgumentNullException(nameof(damageDealer));
+
+        if (damageDealer.Damage < 0)
+            throw new ArgumentOutOfRangeException(nameof(damageDealer.Damage));
+
+        if (IsDied)
+            return 0;
+
+        float valueAfterDamage = Value - damageDealer.Damage;
+
+        return valueAfterDamage > 0 ? damageDealer.Damage : Value;
+    }
+
     public void Heal(float value)
     {
         if (value < 0)
@@ -49,7 +65,6 @@ public class Health : MonoBehaviour, IDamageable, IAction, IAttribute
     }
 
     public void Cancel() => CancelTookDamage?.Invoke();
-
 
     private void UpdateValue(float value)
     {

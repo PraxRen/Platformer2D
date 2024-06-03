@@ -9,4 +9,6 @@ public interface IDamageable
     event Action<IDamageDealer> TookDamage;
 
     void TakeDamage(IDamageDealer damageDealer);
+
+    float CalculateDamage(IDamageDealer damageDealer);
 }

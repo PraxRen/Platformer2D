@@ -9,11 +9,11 @@ public class AidKit : ActionItem
 
     public override void Use(Player player)
     {
-        Health health = player.GetComponentInChildren<Health>();
-
-        if (health == null)
+        if (player.TryGetComponent(out HealthReferenceHelper healthReferenceHelper) == false && healthReferenceHelper.Health == null)
+        {
             throw new System.InvalidOperationException("Для взаимодействия с аптечкой необходимо иметь здоровье!");
-
-        health.Heal(_healthPoints);
+        }
+        
+        healthReferenceHelper.Health.Heal(_healthPoints);
     }
 }

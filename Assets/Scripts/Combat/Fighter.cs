@@ -64,6 +64,8 @@ public class Fighter : MonoBehaviour, IDamageable, IDamageDealer, IListenerAnima
         TookDamage?.Invoke(damageDealer);
     }
 
+    public float CalculateDamage(IDamageDealer damageDealer) => _damageable.CalculateDamage(damageDealer);
+
     public bool CanAttack()
     {
         if (isAttack)
