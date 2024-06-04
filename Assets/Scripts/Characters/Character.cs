@@ -1,14 +1,15 @@
+using System;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] protected Health Health;
     [SerializeField] protected Mover Mover;
     [SerializeField] protected Fighter Fighter;
     [SerializeField] protected GameObject UI;
 
     private static int s_idLast;
 
+    [field: SerializeField] public Health Health { get; private set; }
     public int Id { get; private set; }
 
     private void Awake()
@@ -29,6 +30,7 @@ public abstract class Character : MonoBehaviour
     }
 
     protected abstract void HandleEnable();
+
     protected abstract void HandleDisable();
 
     private void OnDied()

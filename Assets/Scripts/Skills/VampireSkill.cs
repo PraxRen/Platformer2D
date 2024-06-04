@@ -19,27 +19,27 @@ public class VampireSkill : Skill, IDamageDealer
     {
         bool result = true;
 
-        if (character.TryGetComponent(out HealthReferenceHelper healthReferenceHelper) == false && healthReferenceHelper.Health == null)
-        {
-            _stringBuilder.AppendLine($"У {nameof(character)} отсутстует компонент {nameof(Health)}");
-            result = false;
-        }
-
         if (character.TryGetComponent(out Fighter fighter) == false)
         {
             _stringBuilder.AppendLine($"У {nameof(character)} отсутстует компонент {nameof(Fighter)}");
             result = false;
         }
 
-        if (character.TryGetComponent(out CharacterCoroutineRunner coroutineRunner) == false)
-        {
-            _stringBuilder.AppendLine($"У {nameof(character)} отсутстует компонент {nameof(CharacterCoroutineRunner)}");
-            result = false;
-        }
-
         if (character.TryGetComponent(out CapsuleCollider2D collider) == false)
         {
             _stringBuilder.AppendLine($"У {nameof(character)} отсутстует компонент {nameof(CapsuleCollider2D)}");
+            result = false;
+        }
+
+        if (character.TryGetComponent(out CoroutineRunner coroutineRunner) == false)
+        {
+            _stringBuilder.AppendLine($"У {nameof(character)} отсутстует компонент {nameof(CoroutineRunner)}");
+            result = false;
+        }
+
+        if (character.TryGetComponent(out ActivatorGraphics activatorGraphics) == false)
+        {
+            _stringBuilder.AppendLine($"У {nameof(character)} отсутстует компонент {nameof(ActivatorGraphics)}");
             result = false;
         }
 
@@ -53,16 +53,10 @@ public class VampireSkill : Skill, IDamageDealer
         if (character is null)
             throw new ArgumentNullException(nameof(character));
 
-        if (character.TryGetComponent(out HealthReferenceHelper healthReferenceHelper) == false && healthReferenceHelper.Health == null)
-            return false;
-
-        if (healthReferenceHelper.Health.IsDied)
+        if (character.Health.IsDied)
             return false;
 
         if (character.TryGetComponent(out Fighter fighter) == false)
-            return false;
-
-        if (character.TryGetComponent(out CharacterCoroutineRunner coroutineRunner) == false)
             return false;
 
         if (character.TryGetComponent(out CapsuleCollider2D collider) == false)
@@ -71,10 +65,13 @@ public class VampireSkill : Skill, IDamageDealer
         if (character.TryGetComponent(out ActivatorGraphics activatorGraphics) == false)
             return false;
 
+        if (character.TryGetComponent(out CoroutineRunner coroutineRunner) == false)
+            return false;
+
         float heightOffset = collider.size.y / 2;
         Vector2 offset = new Vector2(0, heightOffset);
         activatorGraphics.Activate(TypeGraphics.VampireSkill, new Vector2(fighter.transform.position.x + offset.x, fighter.transform.position.y + offset.y), new Vector2(_radius, _radius));
-        coroutineRunner.Create(character.Id + IdCoroutine, () => Run(fighter, healthReferenceHelper.Health, offset), TimeWaitForSeconds);
+        coroutineRunner.Create(character.Id + IdCoroutine, () => Run(fighter, character.Health, offset), TimeWaitForSeconds);
         return true;
     }
 
@@ -83,10 +80,10 @@ public class VampireSkill : Skill, IDamageDealer
         if (character is null)
             throw new ArgumentNullException(nameof(character));
 
-        if (character.TryGetComponent(out CharacterCoroutineRunner coroutineRunner) == false)
+        if (character.TryGetComponent(out ActivatorGraphics activatorGraphics) == false)
             return false;
 
-        if (character.TryGetComponent(out ActivatorGraphics activatorGraphics) == false)
+        if (character.TryGetComponent(out CoroutineRunner coroutineRunner) == false)
             return false;
 
         activatorGraphics.Deactivate(TypeGraphics.VampireSkill);

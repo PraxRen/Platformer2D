@@ -5,11 +5,11 @@ public class Coin : ActionItem
 {
     public override void Use(Player player)
     {
-        if (player.TryGetComponent(out СoinСounter scoreManager) == false)
+        if (player.TryGetComponent(out CoinCounter coinCounter) == false)
         {
             throw new System.InvalidOperationException("Для взаимодействия с аптечкой необходимо иметь здоровье!");
         }
 
-        scoreManager.AddCoins(1);
+        coinCounter.AddCoins(1);
     }
 }

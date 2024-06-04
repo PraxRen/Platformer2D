@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterCoroutineRunner : MonoBehaviour
+public class CoroutineRunner : MonoBehaviour
 {
     private Dictionary<string, Coroutine> _hash = new Dictionary<string, Coroutine>();
 

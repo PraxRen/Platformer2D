@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class —oin—ounter : MonoBehaviour
+public class CoinCounter : MonoBehaviour
 {
     public event Action<int> UpdatedCoins;
 
